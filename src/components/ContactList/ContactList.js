@@ -1,8 +1,6 @@
 import React from "react";
 import {StyleSheet, View, Text, Image} from 'react-native';
 
-import {connect} from "react-redux";
-
 const styles = StyleSheet.create({
     contactList: {
         flexDirection: 'column',
@@ -40,10 +38,4 @@ class ContactList extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        oneContactId: state.oneContactId
-    };
-};
-
-export default connect(mapStateToProps)(ContactList);
+export default ContactList;
