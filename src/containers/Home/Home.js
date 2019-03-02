@@ -3,7 +3,7 @@ import {StyleSheet, Image, View, Text, TouchableOpacity, Modal, ScrollView} from
 import {connect} from "react-redux";
 
 import ContactList from "../../components/ContactList/ContactList";
-import {closeModal, fetchContacts, openModal} from "../../store/actions/contactAction";
+import {openModal, closeModal, fetchContacts} from "../../store/actions/contactAction";
 
 const styles = StyleSheet.create({
     contactWrap: {
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: 'row',
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: '#ad1283',
         marginVertical: 10,
         paddingHorizontal: 25,
         paddingVertical: 10
@@ -24,11 +24,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginVertical: 25
     },
-    button: {
+    buttonClose: {
         borderWidth: 1,
         borderColor: 'black',
         padding: 25,
         backgroundColor: '#ad1283',
+        width: '200',
         marginVertical: 25
 
     },
@@ -46,7 +47,7 @@ class Home extends React.Component {
         let contacts = null;
         if (this.props.contacts) {
             contacts = this.props.contacts.map((contact, id) => (
-                <TouchableOpacity key={contact.id} style={styles.contactWrap} onPress={() => this.openModal(id)}>
+                <TouchableOpacity key={contact.id} style={styles.contactWrap} onPress={() => this.props.openModal(id)}>
                     <Image style={{width: 60, height: 60, marginHorizontal: 10}} source={{uri: contact.image}}/>
                     <Text style={{fontSize: 20}}>{contact.contactName}</Text>
                 </TouchableOpacity>
@@ -60,10 +61,19 @@ class Home extends React.Component {
                     <Modal visible={this.props.showModal}
                            onRequestClose={() => {
                                console.log('Modal closed');
-                           }}>
-                        <ContactList/>
-                        <TouchableOpacity style={styles.button} onPress={this.props.closeModal}>
-                            <Text style={{fontSize: 22}}>Close modal</Text>
+                           }}
+                    >
+                        {this.props.oneContact ?
+                            <ContactList
+                                contactName={this.props.oneContact.contactName}
+                                image={this.props.oneContact.image}
+                                phone={this.props.oneContact.phone}
+                                email={this.props.oneContact.email}>
+                            </ContactList>
+                            : null
+                        }
+                        <TouchableOpacity style={styles.buttonClose} onPress={this.props.closeModal}>
+                            <Text style={{fontSize: 22}}>Close contact</Text>
                         </TouchableOpacity>
                     </Modal>
                 </View>
@@ -75,6 +85,7 @@ class Home extends React.Component {
 const mapStateToProps = state => {
     return {
         contacts: state.contacts,
+        oneContact: state.oneContact,
         showModal: state.showModal
     };
 };
