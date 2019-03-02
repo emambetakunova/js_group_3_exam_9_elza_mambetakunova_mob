@@ -5,12 +5,14 @@ import {connect} from "react-redux";
 
 const styles = StyleSheet.create({
     contactList: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#ad1283',
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: 'black',
-        marginVertical: 10,
-        padding: 15,
-        flexDirection: 'row'
+        margin: 25,
+        padding: 5
     },
     image: {
         marginVertical: 10,
@@ -28,11 +30,11 @@ class ContactList extends React.Component {
     render() {
         return (
             <View style={styles.contactList}>
-                <Text style={styles.title}>Name: {this.props.oneContactId.contactName}</Text>
+                <Text style={styles.title}>Name: {this.props.contactName}</Text>
                 <Image style={styles.image}
-                       source={{uri: this.props.oneContactId.image}}/>
-                <Text style={styles.title}>Phone: {this.props.oneContactId.phone}</Text>
-                <Text style={styles.title}>e-mail: {this.props.oneContactId.email}</Text>
+                       source={{uri: this.props.image}}/>
+                <Text style={styles.title}>Phone: {this.props.phone}</Text>
+                <Text style={styles.title}>e-mail: {this.props.email}</Text>
             </View>
         )
     }
