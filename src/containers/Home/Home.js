@@ -43,7 +43,6 @@ class Home extends React.Component {
     }
 
     render() {
-        console.log(this.props.oneContact);
         let contacts = null;
         if (this.props.contacts) {
             contacts = this.props.contacts.map((contact, id) => (
